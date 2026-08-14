@@ -43,7 +43,7 @@ export function PageNavigator({
         isDisabled={currentPage <= 0}
         onClick={onPrev}
       />
-      <div className="flex items-center gap-1.5 text-sm text-black/55 dark:text-white/55">
+      <div className="flex items-center gap-1.5 text-sm text-white/55">
         <TextInput
           label="Page number"
           isLabelHidden

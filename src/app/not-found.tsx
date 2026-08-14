@@ -6,16 +6,16 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col bg-background dark:bg-dark-background">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
       <main className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center">
         <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <FileQuestion className="h-10 w-10" aria-hidden />
         </span>
-        <h1 className="mt-6 text-5xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+        <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white">
           404
         </h1>
-        <p className="mt-3 max-w-md text-slate-500 dark:text-slate-400">
+        <p className="mt-3 max-w-md text-white/60">
           We couldn&apos;t find the page you&apos;re looking for. It may have been moved, or the
           link might be incorrect.
         </p>

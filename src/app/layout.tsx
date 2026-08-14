@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import { AppProviders } from "@/providers/AppProviders";
 import "./globals.css";
 
@@ -47,39 +46,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-    { media: "(prefers-color-scheme: dark)", color: "#0B0B0B" },
-  ],
+  themeColor: "#0D0D0D",
   width: "device-width",
   initialScale: 1,
 };
 
-/**
- * Sets `data-theme` on <html> synchronously, before first paint, from the
- * persisted zustand store (localStorage key "editdocsnow-ui") — otherwise
- * dark-mode users see a flash of the light theme while React hydrates.
- * `next/script` with `beforeInteractive` is the Next.js-supported way to run
- * blocking script before hydration; see ThemeProvider for the client-side
- * counterpart that seeds Astryx's <Theme mode> the same way.
- */
-const noFlashThemeScript = `
-(function () {
-  try {
-    var raw = window.localStorage.getItem("editdocsnow-ui");
-    var theme = raw ? JSON.parse(raw).state.theme : "light";
-    document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
-  } catch (e) {}
-})();
-`;
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" data-theme="dark">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <Script id="no-flash-theme" strategy="beforeInteractive">
-          {noFlashThemeScript}
-        </Script>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

@@ -34,8 +34,8 @@ export function ErrorCard({
           <AlertTriangle className="h-7 w-7" aria-hidden />
         </span>
         <VStack gap={1} hAlign="center">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{message}</p>
+          <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <p className="text-sm text-white/60">{message}</p>
         </VStack>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           {onRetry && <Button label={retryLabel} variant="primary" onClick={onRetry} />}

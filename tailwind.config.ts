@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./src/app/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
@@ -10,32 +9,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand orange scale, seeded at #FF6B00 — kept in sync with the
+        // Brand orange scale, seeded at #FF7A00 — kept in sync with the
         // accent tokens passed to defineTheme() in src/lib/astryx-theme.ts.
+        // The app is permanently dark and restricted to orange/black/white —
+        // every step below is a tint (blended toward white) or shade
+        // (blended toward black) of that same orange.
         primary: {
-          DEFAULT: "#FF6B00",
-          50: "#FFF4EB",
-          100: "#FFE4CC",
-          200: "#FFC599",
-          300: "#FFA05C",
-          400: "#FF8A33",
-          500: "#FF6B00",
-          600: "#E65F00",
-          700: "#B34A00",
-          800: "#803400",
-          900: "#4D1F00",
+          DEFAULT: "#FF7A00",
+          50: "#FFF5EC",
+          100: "#FFE6CF",
+          200: "#FFCA99",
+          300: "#FFAA5C",
+          400: "#FF9534",
+          500: "#FF7A00",
+          600: "#E46D00",
+          700: "#B35500",
+          800: "#7D3C00",
+          900: "#4D2500",
         },
-        background: "#FFFFFF",
-        surface: "#FFFFFF",
-        border: "#0B0B0B1A",
-        success: "#15803D",
-        danger: "#DC2626",
-        warning: "#B45309",
-        dark: {
-          background: "#0B0B0B",
-          surface: "#161616",
-          border: "#FFFFFF1F",
-        },
+        background: "#0D0D0D",
+        surface: "#181818",
+        border: "#FFFFFF1F",
+        // Functional status colors are a deliberate exception to the 3-color
+        // brand palette (kept for accessible, conventional error/success/
+        // warning semantics) — tuned for contrast against the dark background.
+        success: "#22C55E",
+        danger: "#F87171",
+        warning: "#FBBF24",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
@@ -45,9 +45,9 @@ const config: Config = {
         "2xl": "1.5rem",
       },
       boxShadow: {
-        soft: "0 1px 2px 0 rgba(11, 11, 11, 0.04), 0 4px 16px -4px rgba(11, 11, 11, 0.08)",
-        glass: "0 8px 32px -8px rgba(11, 11, 11, 0.12)",
-        "glow-accent": "0 0 0 1px rgba(255, 107, 0, 0.16), 0 8px 24px -8px rgba(255, 107, 0, 0.35)",
+        soft: "0 1px 2px 0 rgba(0, 0, 0, 0.24), 0 4px 16px -4px rgba(0, 0, 0, 0.32)",
+        glass: "0 8px 32px -8px rgba(0, 0, 0, 0.4)",
+        "glow-accent": "0 0 0 1px rgba(255, 122, 0, 0.16), 0 8px 24px -8px rgba(255, 122, 0, 0.35)",
       },
       backdropBlur: {
         xs: "2px",

@@ -32,7 +32,7 @@ export function DownloadDialog({
         content={
           <LayoutContent>
             <VStack gap={3}>
-              <p className="text-sm text-black/60 dark:text-white/60">
+              <p className="text-sm text-white/60">
                 {filename ?? "Your document"} has been regenerated with your changes. Download it,
                 open it in a new tab, or copy the link to share.
               </p>

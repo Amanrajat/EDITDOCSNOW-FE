@@ -44,9 +44,9 @@ export function Sidebar({ blocks, totalPages, onSelectBlock }: SidebarProps) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-col gap-3 border-b border-border p-4 dark:border-dark-border">
+      <div className="flex flex-col gap-3 border-b border-border p-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-black dark:text-white">Text blocks</h2>
+          <h2 className="text-sm font-semibold text-white">Text blocks</h2>
           <Badge variant="neutral" label={`${filteredBlocks.length} / ${blocks.length}`} />
         </div>
         <SearchInput value={searchQuery} onChange={setSearchQuery} resultCount={filteredBlocks.length} />

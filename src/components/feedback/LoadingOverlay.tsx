@@ -16,7 +16,7 @@ export function LoadingOverlay({ isVisible, label = "Loading…" }: LoadingOverl
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 bg-white/70 backdrop-blur-sm dark:bg-dark-surface/70"
+          className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 bg-surface/70 backdrop-blur-sm"
         >
           <Spinner size="lg" label={label} />
         </motion.div>

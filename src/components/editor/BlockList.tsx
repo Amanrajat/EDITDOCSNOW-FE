@@ -43,7 +43,7 @@ export function BlockList({ blocks, onSelect, focusBlockId }: BlockListProps) {
 
   if (blocks.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center px-6 text-center text-sm text-black/40 dark:text-white/40">
+      <div className="flex h-full items-center justify-center px-6 text-center text-sm text-white/40">
         No blocks match your search.
       </div>
     );

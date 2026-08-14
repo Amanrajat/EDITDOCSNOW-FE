@@ -34,7 +34,7 @@ export function BlockOverlay({ block, scale }: BlockOverlayProps) {
       spellCheck={false}
       className={cn(
         "pointer-events-auto absolute resize-none overflow-hidden rounded-[2px] border border-transparent bg-transparent px-0.5 leading-tight outline-none transition-colors",
-        "hover:border-primary/40 hover:bg-primary/5 focus:border-primary focus:bg-white/90 focus:shadow-sm dark:focus:bg-black/60",
+        "hover:border-primary/40 hover:bg-primary/5 focus:border-primary focus:bg-black/60 focus:shadow-sm",
         isSelected && "border-primary bg-primary/5",
         searchQuery && !isSearchMatch && "opacity-30",
         searchQuery && isSearchMatch && "bg-warning/10",

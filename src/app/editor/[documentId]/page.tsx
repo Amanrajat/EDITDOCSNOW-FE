@@ -177,7 +177,7 @@ export default function EditorPage() {
 
         <div
           style={{ width: sidebar.size }}
-          className="hidden shrink-0 border-l border-border bg-white dark:border-dark-border dark:bg-dark-surface lg:flex"
+          className="hidden shrink-0 border-l border-border bg-surface lg:flex"
         >
           <Sidebar blocks={blocks} totalPages={totalPages} onSelectBlock={handleSelectBlock} />
         </div>

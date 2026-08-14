@@ -37,7 +37,7 @@ export function Toolbar({
   onDownload,
 }: ToolbarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-border bg-white/80 px-3 py-2 backdrop-blur-sm dark:border-dark-border dark:bg-dark-surface/80">
+    <div className="flex flex-wrap items-center gap-2 border-b border-border bg-surface/80 px-3 py-2 backdrop-blur-sm">
       <div className="flex items-center gap-1">
         <IconButton label="Undo" icon={<Undo2 className="h-4 w-4" />} variant="ghost" size="sm" isDisabled={!canUndo} onClick={onUndo} />
         <IconButton label="Redo" icon={<Redo2 className="h-4 w-4" />} variant="ghost" size="sm" isDisabled={!canRedo} onClick={onRedo} />

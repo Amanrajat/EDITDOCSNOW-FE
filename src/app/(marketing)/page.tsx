@@ -50,10 +50,10 @@ export default function LandingPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-white">
+          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Everything you need to edit a PDF
           </h2>
-          <p className="mt-3 text-black/55 dark:text-white/55">
+          <p className="mt-3 text-white/55">
             Built for quick, accurate edits — without touching the original design.
           </p>
         </div>

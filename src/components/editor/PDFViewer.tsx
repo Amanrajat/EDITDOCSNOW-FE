@@ -30,13 +30,13 @@ export function PDFViewer({ fileUrl, blocks, viewer }: PDFViewerProps) {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-full w-full items-start justify-center overflow-auto bg-black/[0.03] p-8 dark:bg-black/40"
+      className="relative flex h-full w-full items-start justify-center overflow-auto bg-black/40 p-8"
     >
       <Document
         file={fileUrl}
         loading={<SkeletonViewer />}
         error={
-          <div className="flex h-full flex-col items-center justify-center gap-3 text-black/55 dark:text-white/55">
+          <div className="flex h-full flex-col items-center justify-center gap-3 text-white/55">
             <FileWarning className="h-8 w-8 text-danger" />
             <p className="text-sm">Could not load this PDF file.</p>
           </div>

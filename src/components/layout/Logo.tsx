@@ -20,13 +20,13 @@ export function Logo({ size = "md", className }: LogoProps) {
     <Link
       href="/"
       className={cn(
-        "flex items-center gap-2.5 font-semibold text-black focus-ring-accent rounded-lg dark:text-white",
+        "flex items-center gap-2.5 font-semibold text-white focus-ring-accent rounded-lg",
         className,
       )}
     >
       <span
         className={cn(
-          "flex items-center justify-center rounded-lg bg-primary text-black shadow-[0_1px_2px_rgba(11,11,11,0.08)]",
+          "flex items-center justify-center rounded-lg bg-primary text-black shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
           s.mark,
         )}
       >

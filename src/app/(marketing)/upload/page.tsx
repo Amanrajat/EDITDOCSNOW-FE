@@ -22,10 +22,10 @@ export default function UploadPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="text-center">
-        <h1 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-white">
+        <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
           Upload your PDF
         </h1>
-        <p className="mt-3 text-black/55 dark:text-white/55">
+        <p className="mt-3 text-white/55">
           We&apos;ll extract every editable text block automatically — this usually takes a few seconds.
         </p>
       </div>
@@ -41,7 +41,7 @@ export default function UploadPage() {
 
       {recentDocuments.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-black/40 dark:text-white/40">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-white/40">
             Recent documents
           </h2>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -52,14 +52,14 @@ export default function UploadPage() {
                   padding={4}
                   className="flex items-center gap-3 transition-all hover:-translate-y-0.5 hover:shadow-soft"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary-700 dark:text-primary-400">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary-400">
                     <FileText className="h-5 w-5" aria-hidden />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-black dark:text-white">
+                    <p className="truncate text-sm font-medium text-white">
                       {doc.name}
                     </p>
-                    <p className="flex items-center gap-1 text-xs text-black/40 dark:text-white/40">
+                    <p className="flex items-center gap-1 text-xs text-white/40">
                       <Clock className="h-3 w-3" /> {new Date(doc.uploadedAt).toLocaleDateString()}
                     </p>
                   </div>

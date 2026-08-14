@@ -24,7 +24,7 @@ function BlockListItemImpl({ block, onSelect }: BlockListItemProps) {
         "rounded-xl border p-3 transition-colors",
         isSelected
           ? "border-primary bg-primary/5 shadow-soft"
-          : "border-border bg-white hover:border-primary/40 dark:border-dark-border dark:bg-dark-surface",
+          : "border-border bg-surface hover:border-primary/40",
       )}
       onClick={() => onSelect(block)}
     >

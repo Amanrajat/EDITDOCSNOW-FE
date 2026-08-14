@@ -55,7 +55,7 @@ export function UploadDropzone({
       onDrop={handleDrop}
       className={cn(
         "glass-card focus-ring-accent relative flex min-h-[22rem] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-10 text-center transition-colors duration-200",
-        isDragging ? "border-primary bg-primary/5" : "border-border dark:border-dark-border",
+        isDragging ? "border-primary bg-primary/5" : "border-border",
         isUploading && "cursor-default",
       )}
     >
@@ -77,17 +77,17 @@ export function UploadDropzone({
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary-700 dark:text-primary-400">
+          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary-400">
             <UploadCloud className="h-8 w-8" aria-hidden />
           </span>
-          <h2 className="mt-6 text-xl font-semibold text-black dark:text-white">
+          <h2 className="mt-6 text-xl font-semibold text-white">
             Drag &amp; drop your PDF here
           </h2>
-          <p className="mt-2 text-sm text-black/55 dark:text-white/55">
+          <p className="mt-2 text-sm text-white/55">
             or click to browse from your computer
           </p>
           <Button label="Browse files" variant="primary" className="mt-6" />
-          <p className="mt-4 text-xs text-black/40 dark:text-white/40">
+          <p className="mt-4 text-xs text-white/40">
             PDF only · Up to {formatFileSize(MAX_UPLOAD_SIZE_BYTES)}
           </p>
         </motion.div>
@@ -100,14 +100,14 @@ export function UploadDropzone({
           className="flex w-full max-w-sm flex-col items-center"
           onClick={(e) => e.stopPropagation()}
         >
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-700 dark:text-primary-400">
+          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-400">
             <FileText className="h-7 w-7" aria-hidden />
           </span>
-          <p className="mt-4 max-w-full truncate text-sm font-medium text-black dark:text-white">
+          <p className="mt-4 max-w-full truncate text-sm font-medium text-white">
             {selectedFile?.name}
           </p>
           {selectedFile && (
-            <p className="text-xs text-black/40 dark:text-white/40">{formatFileSize(selectedFile.size)}</p>
+            <p className="text-xs text-white/40">{formatFileSize(selectedFile.size)}</p>
           )}
 
           <div className="mt-6 w-full">

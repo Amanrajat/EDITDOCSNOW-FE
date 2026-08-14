@@ -36,7 +36,7 @@ export function FAQ() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="text-center">
-        <h2 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-white">
+        <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
           Frequently asked questions
         </h2>
       </div>
@@ -46,7 +46,7 @@ export function FAQ() {
           <VStack gap={0}>
             {FAQS.map((faq, index) => (
               <Collapsible key={faq.question} value={`q-${index}`} trigger={faq.question}>
-                <p className="pb-2 text-sm leading-relaxed text-black/55 dark:text-white/55">
+                <p className="pb-2 text-sm leading-relaxed text-white/55">
                   {faq.answer}
                 </p>
               </Collapsible>

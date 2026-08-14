@@ -36,7 +36,7 @@ export default function SuccessPage() {
   if (!doc.edited_file) {
     return (
       <div className="flex h-[70vh] flex-col items-center justify-center gap-4 px-4 text-center">
-        <p className="text-black/55 dark:text-white/55">
+        <p className="text-white/55">
           This document hasn&apos;t been saved yet.
         </p>
         <Button label="Go to editor" variant="primary" as={Link} href={`/editor/${doc.id}`} />
@@ -69,24 +69,24 @@ function SuccessContent({
         <Check className="h-10 w-10" aria-hidden />
       </motion.div>
 
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-black dark:text-white">
+      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-white">
         Your PDF is ready
       </h1>
-      <p className="mt-2 text-black/55 dark:text-white/55">
+      <p className="mt-2 text-white/55">
         {doc.original_name} has been regenerated with your edits.
       </p>
 
       <Card variant="default" padding={6} className="mt-8 w-full shadow-soft">
         <VStack gap={3}>
           <div className="flex items-center gap-3 text-left">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary-700 dark:text-primary-400">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary-400">
               <FileEdit className="h-5 w-5" aria-hidden />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-black dark:text-white">
+              <p className="truncate text-sm font-medium text-white">
                 {doc.original_name}
               </p>
-              <p className="text-xs text-black/40 dark:text-white/40">{doc.total_pages} pages</p>
+              <p className="text-xs text-white/40">{doc.total_pages} pages</p>
             </div>
           </div>
 
