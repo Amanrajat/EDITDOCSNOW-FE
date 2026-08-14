@@ -9,6 +9,10 @@ import { Logo } from "./Logo";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/upload", label: "Upload" },
+  { href: "/merge", label: "Merge PDF" },
+  { href: "/split", label: "Split PDF" },
+  { href: "/organize", label: "Organize PDF" },
+  { href: "/remove-pages", label: "Remove Pages" },
 ];
 
 interface HeaderProps {
