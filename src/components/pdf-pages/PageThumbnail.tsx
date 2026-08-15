@@ -2,11 +2,17 @@
 
 import { useEffect, useRef, useState, type DragEvent } from "react";
 import { Page } from "react-pdf";
-import { Check, GripVertical, X } from "lucide-react";
+import { Check, GripVertical, RotateCcw, RotateCw, X } from "lucide-react";
 import { Spinner } from "@astryxdesign/core/Spinner";
 import { cn } from "@/utils/cn";
 
 const THUMBNAIL_WIDTH = 130;
+const THUMBNAIL_HEIGHT = 168;
+/** Applied on top of the rotation transform for 90/270 previews so the
+ * (now sideways) page still fits inside the portrait thumbnail footprint
+ * instead of overflowing it. Purely cosmetic - actual output dimensions
+ * are computed and verified server-side. */
+const SIDEWAYS_SCALE = THUMBNAIL_WIDTH / THUMBNAIL_HEIGHT;
 
 interface PageThumbnailProps {
   /** The page's number in the ORIGINAL document (1-based) - what react-pdf
@@ -24,14 +30,27 @@ interface PageThumbnailProps {
    * "reorder" (Organize PDF): draggable, primary-colored selection, grip
    * handle shown. "remove" (Remove Pages): not draggable, danger-colored
    * selection (marking a page red communicates "this will be deleted"
-   * differently than "this is selected"), no grip handle.
+   * differently than "this is selected"), no grip handle. "rotate"
+   * (Rotate PDF): not draggable, primary-colored selection, no grip handle.
+   * "crop" (Crop PDF) / "page-numbers" (Page Numbers) / "pdf-to-jpg"
+   * (PDF to JPG): not draggable, primary-colored selection, no grip
+   * handle - a plain page-picker for "which pages does this operation
+   * apply to".
    */
-  variant?: "reorder" | "remove";
+  variant?: "reorder" | "remove" | "rotate" | "crop" | "page-numbers" | "pdf-to-jpg";
   isDragging?: boolean;
   onDragStart?: (event: DragEvent<HTMLDivElement>) => void;
   onDragOver?: (event: DragEvent<HTMLDivElement>) => void;
   onDrop?: (event: DragEvent<HTMLDivElement>) => void;
   onDragEnd?: () => void;
+  /** Client-side rotation preview (degrees, any value - normalized via
+   * CSS) - purely visual, applied before the user commits the operation. */
+  rotationDegrees?: number;
+  /** Rotate this page -90°/+90° (Rotate PDF only). Shown as small icon
+   * buttons on hover so single pages can be nudged without a toolbar
+   * bulk action. */
+  onRotateLeft?: () => void;
+  onRotateRight?: () => void;
 }
 
 /**
@@ -53,10 +72,15 @@ export function PageThumbnail({
   onDragOver,
   onDrop,
   onDragEnd,
+  rotationDegrees = 0,
+  onRotateLeft,
+  onRotateRight,
 }: PageThumbnailProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [shouldRender, setShouldRender] = useState(false);
   const isDraggable = variant === "reorder" && !isDisabled;
+  const normalizedRotation = ((rotationDegrees % 360) + 360) % 360;
+  const isSideways = normalizedRotation === 90 || normalizedRotation === 270;
 
   useEffect(() => {
     if (shouldRender) return;
@@ -135,21 +159,57 @@ export function PageThumbnail({
       <button
         type="button"
         onClick={onPreview}
-        className="focus-ring-accent flex h-[168px] w-[130px] items-center justify-center overflow-hidden rounded-lg bg-white"
+        className="focus-ring-accent relative flex h-[168px] w-[130px] items-center justify-center overflow-hidden rounded-lg bg-white"
         aria-label={`Preview page ${pageNumber}`}
       >
-        {shouldRender ? (
-          <Page
-            pageNumber={pageNumber}
-            width={THUMBNAIL_WIDTH}
-            renderAnnotationLayer={false}
-            renderTextLayer={false}
-            loading={<Spinner size="sm" label="Rendering…" />}
-          />
-        ) : (
-          <Spinner size="sm" label="Loading…" />
+        <div
+          className="transition-transform duration-300 ease-out"
+          style={{
+            transform: `rotate(${normalizedRotation}deg) scale(${isSideways ? SIDEWAYS_SCALE : 1})`,
+          }}
+        >
+          {shouldRender ? (
+            <Page
+              pageNumber={pageNumber}
+              width={THUMBNAIL_WIDTH}
+              renderAnnotationLayer={false}
+              renderTextLayer={false}
+              loading={<Spinner size="sm" label="Rendering…" />}
+            />
+          ) : (
+            <Spinner size="sm" label="Loading…" />
+          )}
+        </div>
+
+        {variant === "rotate" && normalizedRotation !== 0 && (
+          <span className="absolute bottom-1 right-1 z-10 rounded-md bg-primary/90 px-1.5 py-0.5 text-[10px] font-semibold text-black">
+            {normalizedRotation}°
+          </span>
         )}
       </button>
+
+      {variant === "rotate" && (onRotateLeft || onRotateRight) && (
+        <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+          <button
+            type="button"
+            onClick={onRotateLeft}
+            disabled={isDisabled}
+            aria-label={`Rotate page ${pageNumber} left 90 degrees`}
+            className="focus-ring-accent flex h-6 w-6 items-center justify-center rounded-md border border-white/20 text-white/70 hover:border-white/40 hover:text-white disabled:pointer-events-none disabled:opacity-40"
+          >
+            <RotateCcw className="h-3.5 w-3.5" aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={onRotateRight}
+            disabled={isDisabled}
+            aria-label={`Rotate page ${pageNumber} right 90 degrees`}
+            className="focus-ring-accent flex h-6 w-6 items-center justify-center rounded-md border border-white/20 text-white/70 hover:border-white/40 hover:text-white disabled:pointer-events-none disabled:opacity-40"
+          >
+            <RotateCw className="h-3.5 w-3.5" aria-hidden />
+          </button>
+        </div>
+      )}
 
       <span className="text-xs font-medium text-white/60">Page {position}</span>
     </div>

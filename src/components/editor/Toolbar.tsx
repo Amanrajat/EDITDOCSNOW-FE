@@ -7,6 +7,7 @@ import { Divider } from "@astryxdesign/core/Divider";
 import { Badge } from "@astryxdesign/core/Badge";
 import { ZoomControls } from "@/components/editor/ZoomControls";
 import { PageNavigator } from "@/components/editor/PageNavigator";
+import { ToolPalette } from "@/components/editor/ToolPalette";
 import type { usePdfViewer } from "@/hooks/usePdfViewer";
 
 interface ToolbarProps {
@@ -55,6 +56,10 @@ export function Toolbar({
         onFitHeight={viewer.fitHeight}
         onRotate={viewer.rotate}
       />
+
+      <Divider orientation="vertical" />
+
+      <ToolPalette />
 
       <Divider orientation="vertical" />
 

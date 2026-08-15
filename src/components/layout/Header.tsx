@@ -13,6 +13,23 @@ const NAV_LINKS = [
   { href: "/split", label: "Split PDF" },
   { href: "/organize", label: "Organize PDF" },
   { href: "/remove-pages", label: "Remove Pages" },
+  { href: "/rotate", label: "Rotate PDF" },
+  { href: "/crop", label: "Crop PDF" },
+  { href: "/page-numbers", label: "Page Numbers" },
+  { href: "/compress", label: "Compress PDF" },
+  { href: "/batch-compress", label: "Batch Compress" },
+  { href: "/pdf-to-word", label: "PDF to Word" },
+  { href: "/pdf-to-excel", label: "PDF to Excel" },
+  { href: "/pdf-to-powerpoint", label: "PDF to PowerPoint" },
+  { href: "/pdf-to-jpg", label: "PDF to JPG" },
+  { href: "/pdf-to-markdown", label: "PDF to Markdown" },
+  { href: "/jpg-to-pdf", label: "JPG to PDF" },
+  { href: "/pdf-to-pdfa", label: "PDF to PDF/A" },
+  { href: "/word-to-pdf", label: "Word to PDF" },
+  { href: "/excel-to-pdf", label: "Excel to PDF" },
+  { href: "/powerpoint-to-pdf", label: "PowerPoint to PDF" },
+  { href: "/html-to-pdf", label: "HTML to PDF" },
+  { href: "/ocr", label: "OCR" },
 ];
 
 interface HeaderProps {

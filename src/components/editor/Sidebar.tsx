@@ -5,6 +5,7 @@ import { Selector } from "@astryxdesign/core/Selector";
 import { Badge } from "@astryxdesign/core/Badge";
 import { SearchInput } from "@/components/editor/SearchInput";
 import { BlockList } from "@/components/editor/BlockList";
+import { ObjectPropertiesPanel } from "@/components/editor/ObjectPropertiesPanel";
 import { useDocumentStore } from "@/store/document.store";
 import { matchesSearch } from "@/utils/highlight";
 import type { DocumentBlock } from "@/types/document";
@@ -44,6 +45,10 @@ export function Sidebar({ blocks, totalPages, onSelectBlock }: SidebarProps) {
 
   return (
     <div className="flex h-full flex-col">
+      <div className="max-h-[60%] shrink-0 overflow-y-auto">
+        <ObjectPropertiesPanel />
+      </div>
+
       <div className="flex flex-col gap-3 border-b border-border p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-white">Text blocks</h2>

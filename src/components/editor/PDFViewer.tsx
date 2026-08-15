@@ -8,6 +8,7 @@ import { FileWarning } from "lucide-react";
 import { Spinner } from "@astryxdesign/core/Spinner";
 import { SkeletonViewer } from "@/components/feedback/SkeletonViewer";
 import { TextOverlay } from "@/components/editor/TextOverlay";
+import { ObjectsLayer } from "@/components/editor/ObjectsLayer";
 import type { usePdfViewer } from "@/hooks/usePdfViewer";
 import type { DocumentBlock } from "@/types/document";
 
@@ -65,6 +66,14 @@ export function PDFViewer({ fileUrl, blocks, viewer }: PDFViewerProps) {
               <TextOverlay
                 blocks={blocks.filter((block) => block.page_number === currentPage)}
                 scale={zoom}
+              />
+            )}
+            {pageSize && rotation === 0 && (
+              <ObjectsLayer
+                scale={zoom}
+                pageWidth={pageSize.width}
+                pageHeight={pageSize.height}
+                currentPage={currentPage}
               />
             )}
           </div>
