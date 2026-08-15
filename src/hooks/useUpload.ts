@@ -29,6 +29,7 @@ export function useUpload() {
         name: document.original_name,
         uploadedAt: Date.now(),
         totalPages: document.total_pages,
+        ownerToken: document.owner_token,
       });
 
       if (document.status === "failed") {

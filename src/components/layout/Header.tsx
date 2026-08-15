@@ -3,17 +3,48 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@astryxdesign/core/Button";
-import { cn } from "@/utils/cn";
+import {
+  TopNav,
+  TopNavItem,
+  TopNavMegaMenu,
+  TopNavMegaMenuItem,
+  TopNavMenu,
+  useTopNavRenderMode,
+} from "@astryxdesign/core/TopNav";
+import {
+  COMPRESS_TOOLS,
+  CONVERT_FROM_PDF,
+  CONVERT_TO_PDF,
+  EDIT_TOOLS,
+  OCR_TOOL,
+  ORGANIZE_TOOLS,
+  RESOURCE_LINKS,
+  type ResourceLink,
+  type ToolMeta,
+} from "@/config/navigation";
 import { Logo } from "./Logo";
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/upload", label: "Upload" },
-  { href: "/merge", label: "Merge PDF" },
-  { href: "/split", label: "Split PDF" },
-  { href: "/organize", label: "Organize PDF" },
-  { href: "/remove-pages", label: "Remove Pages" },
-];
+function isActiveGroup(pathname: string, hrefs: string[]): boolean {
+  return hrefs.some((href) => pathname === href || pathname.startsWith(`${href}/`));
+}
+
+function toMenuItems(entries: (ToolMeta | ResourceLink)[]) {
+  return entries.map((entry) => ({
+    title: entry.title,
+    description: entry.description,
+    icon: <entry.icon className="h-4 w-4" />,
+    href: entry.href,
+  }));
+}
+
+/** The compact mobile-bar row (logo + CTA + hamburger) has too little room
+ * for the full "Upload PDF" label at very narrow widths (e.g. 320px) —
+ * shorten it there. Desktop and the drawer keep the full label. */
+function UploadCta() {
+  const renderMode = useTopNavRenderMode();
+  const label = renderMode === "mobile-bar" ? "Upload" : "Upload PDF";
+  return <Button label={label} variant="primary" size="sm" as={Link} href="/upload" />;
+}
 
 interface HeaderProps {
   /** "full" = marketing nav + CTA. "minimal" = editor top bar (logo + a
@@ -41,31 +72,78 @@ export function Header({ variant = "full" }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo />
-
-        <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "focus-ring-accent rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                pathname === link.href
-                  ? "bg-primary/10 text-primary-400"
-                  : "text-white/60 hover:bg-white/5 hover:text-white",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <Button label="Upload PDF" variant="primary" size="sm" as={Link} href="/upload" />
-        </div>
+    <div className="border-b border-border bg-surface/80 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <TopNav
+          label="Primary"
+          heading={<Logo />}
+          endContent={<UploadCta />}
+        >
+          <TopNavMegaMenu
+            label="PDF Tools"
+            items={
+              <>
+                {ORGANIZE_TOOLS.map((tool) => (
+                  <TopNavMegaMenuItem
+                    key={tool.slug}
+                    title={tool.title}
+                    description={tool.description}
+                    icon={<tool.icon className="h-4 w-4" />}
+                    href={tool.href}
+                    as={Link}
+                  />
+                ))}
+              </>
+            }
+          />
+          <TopNavMegaMenu
+            label="Convert PDF"
+            items={
+              <>
+                <div>
+                  <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-white/40">
+                    PDF → Other Formats
+                  </p>
+                  {CONVERT_FROM_PDF.map((tool) => (
+                    <TopNavMegaMenuItem
+                      key={tool.slug}
+                      title={tool.title}
+                      description={tool.description}
+                      icon={<tool.icon className="h-4 w-4" />}
+                      href={tool.href}
+                      as={Link}
+                    />
+                  ))}
+                </div>
+                <div>
+                  <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-white/40">
+                    Other Formats → PDF
+                  </p>
+                  {CONVERT_TO_PDF.map((tool) => (
+                    <TopNavMegaMenuItem
+                      key={tool.slug}
+                      title={tool.title}
+                      description={tool.description}
+                      icon={<tool.icon className="h-4 w-4" />}
+                      href={tool.href}
+                      as={Link}
+                    />
+                  ))}
+                </div>
+              </>
+            }
+          />
+          <TopNavMenu label="Edit PDF" items={toMenuItems(EDIT_TOOLS)} />
+          <TopNavMenu label="Compress" items={toMenuItems(COMPRESS_TOOLS)} />
+          <TopNavItem
+            label="OCR"
+            href={OCR_TOOL.href}
+            isSelected={isActiveGroup(pathname, [OCR_TOOL.href])}
+            as={Link}
+          />
+          <TopNavMenu label="Resources" items={toMenuItems(RESOURCE_LINKS)} />
+        </TopNav>
       </div>
-    </header>
+    </div>
   );
 }

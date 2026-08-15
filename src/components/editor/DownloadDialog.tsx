@@ -52,7 +52,7 @@ export function DownloadDialog({
                 label="Open PDF"
                 variant="secondary"
                 icon={<ExternalLink className="h-4 w-4" />}
-                href={downloadUrl}
+                href={`${downloadUrl}&disposition=inline`}
                 target="_blank"
                 rel="noopener noreferrer"
               />

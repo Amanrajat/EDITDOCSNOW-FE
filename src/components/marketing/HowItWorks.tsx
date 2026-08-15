@@ -1,28 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Edit3, Download, ScanText, Upload } from "lucide-react";
+import { Download, SlidersHorizontal, Upload, Wrench } from "lucide-react";
 
 const STEPS = [
   {
     icon: Upload,
-    title: "Upload your PDF",
-    description: "Drag and drop any PDF up to 20MB. We validate it instantly.",
+    title: "Upload your file",
+    description: "Drag and drop a PDF (or the image/document a tool starts from).",
   },
   {
-    icon: ScanText,
-    title: "We extract every block",
-    description: "Text blocks, fonts, and positions are detected automatically.",
+    icon: Wrench,
+    title: "Choose a tool",
+    description: "Merge, split, compress, convert, OCR, or edit — pick from 20+ PDF tools.",
   },
   {
-    icon: Edit3,
-    title: "Edit visually",
-    description: "Click any block on the page and rewrite it in place.",
+    icon: SlidersHorizontal,
+    title: "Configure & process",
+    description: "Set the options for that tool, then run it — right in your browser.",
   },
   {
     icon: Download,
     title: "Download the result",
-    description: "Save your edits and get a freshly regenerated PDF.",
+    description: "Get your new file instantly. Your original is never modified.",
   },
 ];
 
@@ -34,7 +34,7 @@ export function HowItWorks() {
           How it works
         </h2>
         <p className="mt-3 text-white/55">
-          Four steps between your original PDF and a perfectly edited one.
+          The same simple flow for every PDF tool on EditDocsNow.
         </p>
       </div>
 

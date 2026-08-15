@@ -1,12 +1,18 @@
+import { AppShell } from "@astryxdesign/core/AppShell";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <main className="flex-1">{children}</main>
+    <AppShell
+      variant="wash"
+      height="auto"
+      contentPadding={0}
+      topNav={<Header />}
+      mobileNav={{ breakpoint: "lg" }}
+    >
+      <main>{children}</main>
       <Footer />
-    </div>
+    </AppShell>
   );
 }

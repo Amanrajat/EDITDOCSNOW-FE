@@ -33,11 +33,19 @@ export function BlockOverlay({ block, scale }: BlockOverlayProps) {
       onFocus={() => selectBlock(block.id)}
       spellCheck={false}
       className={cn(
-        "pointer-events-auto absolute resize-none overflow-hidden rounded-[2px] border border-transparent bg-transparent px-0.5 leading-tight outline-none transition-colors",
-        "hover:border-primary/40 hover:bg-primary/5 focus:border-primary focus:bg-black/60 focus:shadow-sm",
-        isSelected && "border-primary bg-primary/5",
+        // bg-white masks the original PDF page's baked-in pixels for this
+        // block's region — without it, the rendered page shows through a
+        // transparent textarea at the same time the textarea draws its own
+        // (identical) text, producing a doubled/ghosted look everywhere.
+        "pointer-events-auto absolute resize-none overflow-hidden rounded-[2px] border border-transparent bg-white px-0.5 leading-tight outline-none transition-colors",
+        // These all stay opaque too (bg-primary-50/yellow-100, not
+        // bg-primary/5 or bg-warning/10) — a translucent background here
+        // would let the original page's pixels bleed through again during
+        // hover/select/search-highlight, the same masking problem as idle.
+        "hover:border-primary/40 hover:bg-primary-50 focus:border-primary focus:bg-black/60 focus:shadow-sm",
+        isSelected && "border-primary bg-primary-50",
         searchQuery && !isSearchMatch && "opacity-30",
-        searchQuery && isSearchMatch && "bg-warning/10",
+        searchQuery && isSearchMatch && "bg-yellow-100",
       )}
       style={{
         left: rect.left,

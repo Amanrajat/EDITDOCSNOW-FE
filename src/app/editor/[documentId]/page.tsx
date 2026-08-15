@@ -17,6 +17,7 @@ import { SkeletonViewer } from "@/components/feedback/SkeletonViewer";
 
 import { useDocument } from "@/hooks/useDocument";
 import { useExtract } from "@/hooks/useExtract";
+import { useEditorObjects } from "@/hooks/useEditorObjects";
 import { useSave } from "@/hooks/useSave";
 import { usePdfViewer } from "@/hooks/usePdfViewer";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
@@ -32,6 +33,7 @@ export default function EditorPage() {
 
   const { document: fetchedDocument, isLoading, isError, refetch } = useDocument(documentId);
   const { extract, isExtracting } = useExtract();
+  const { loadObjects } = useEditorObjects();
   const { save, saveAsync, isSaving } = useSave(documentId);
 
   const storeDocument = useDocumentStore((state) => state.document);
@@ -45,6 +47,12 @@ export default function EditorPage() {
   const canRedo = useDocumentStore((state) => state.redoStack.length > 0);
   const isDirty = useDocumentStore((state) => state.isDirty());
   const downloadUrl = useDocumentStore((state) => state.downloadUrl);
+  const selectedObjectId = useDocumentStore((state) => state.selectedObjectId);
+  const currentTool = useDocumentStore((state) => state.currentTool);
+  const removeObject = useDocumentStore((state) => state.removeObject);
+  const duplicateObject = useDocumentStore((state) => state.duplicateObject);
+  const selectObject = useDocumentStore((state) => state.selectObject);
+  const setTool = useDocumentStore((state) => state.setTool);
 
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -65,6 +73,12 @@ export default function EditorPage() {
     onSave: () => !isSaving && save(),
     onUndo: undo,
     onRedo: redo,
+    onDelete: () => selectedObjectId && removeObject(selectedObjectId),
+    onDuplicate: () => selectedObjectId && duplicateObject(selectedObjectId),
+    onEscape: () => {
+      if (selectedObjectId) selectObject(null);
+      else if (currentTool !== "select") setTool("select");
+    },
   });
 
   useEffect(() => {
@@ -84,8 +98,9 @@ export default function EditorPage() {
     ) {
       setHasTriggeredExtract(true);
       extract(storeDocument.id);
+      loadObjects(storeDocument.id);
     }
-  }, [storeDocument, blocks.length, isExtracting, hasTriggeredExtract, extract]);
+  }, [storeDocument, blocks.length, isExtracting, hasTriggeredExtract, extract, loadObjects]);
 
   async function handleSave() {
     try {
