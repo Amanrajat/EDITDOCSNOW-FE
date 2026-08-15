@@ -8,7 +8,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("PDF to PDF/A", () => {
   test("converts via Ghostscript and preserves page count and text", async ({ page }) => {
     await page.goto("/pdf-to-pdfa");
-    await expect(page.getByRole("heading", { name: "PDF to PDF/A" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "PDF to PDF/A", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await page.getByRole("radio", { name: "PDF/A-1b" }).click();

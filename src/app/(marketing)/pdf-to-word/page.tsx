@@ -1,40 +1,30 @@
-"use client";
+import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { HowToUse } from "@/components/common/HowToUse";
+import { FAQSection } from "@/components/common/FAQSection";
+import { RelatedTools } from "@/components/common/RelatedTools";
+import { getHowToSteps } from "@/data/tool-howto";
+import { getToolFaqs } from "@/data/tool-faqs";
+import { getRelatedSlugs } from "@/data/related-tools";
+import { getToolsBySlugs } from "@/config/navigation";
+import { PdfToWordClient } from "./PdfToWordClient";
 
-import { FileText } from "lucide-react";
-import { ConversionToolPage } from "@/components/convert/ConversionToolPage";
+export const metadata: Metadata = {
+  title: "PDF to Word Converter — Convert PDF to DOCX",
+  description: "Convert your PDF into an editable Word document — text, tables, and images preserved. Free, in your browser.",
+  alternates: { canonical: "/pdf-to-word" },
+};
 
 export default function PdfToWordPage() {
   return (
-    <ConversionToolPage
-      icon={<FileText className="h-7 w-7" aria-hidden />}
-      title="PDF to Word"
-      description="Convert your PDF into an editable Word document - text, tables, and images preserved."
-      endpointPath="/convert/pdf-to-word/"
-      submitLabel="Convert to Word"
-      resultHeading="Your PDF is now a Word document"
-      resultDescription={(result) => {
-        const scanned = Array.isArray(result.scanned_pages) ? result.scanned_pages.length : 0;
-        return scanned > 0
-          ? `${result.page_count} pages converted (${scanned} scanned page${scanned === 1 ? "" : "s"} kept as images).`
-          : `${result.page_count} pages converted.`;
-      }}
-      resultFilename="converted.docx"
-      renderStats={(result) => (
-        <div className="grid grid-cols-3 gap-3 text-center text-sm text-white/60">
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.page_count ?? "-")}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Pages</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.table_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Tables</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.image_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Images</p>
-          </div>
-        </div>
-      )}
-    />
+    <div className="pb-8">
+      <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "PDF to Word" }]} />
+      </div>
+      <PdfToWordClient />
+      <HowToUse toolName="PDF to Word" steps={getHowToSteps("pdf-to-word")} />
+      <FAQSection faqs={getToolFaqs("pdf-to-word")} />
+      <RelatedTools tools={getToolsBySlugs(getRelatedSlugs("pdf-to-word"))} />
+    </div>
   );
 }

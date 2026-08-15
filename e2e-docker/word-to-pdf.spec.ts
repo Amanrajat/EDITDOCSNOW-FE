@@ -8,7 +8,7 @@ const FIXTURE_DOCX = path.join(__dirname, "..", "e2e", "fixtures", "sample.docx"
 test.describe("Word to PDF (real LibreOffice backend)", () => {
   test("converts a real .docx to a real PDF via LibreOffice", async ({ page }) => {
     await page.goto("/word-to-pdf");
-    await expect(page.getByRole("heading", { name: "Word to PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Word to PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_DOCX);
 
@@ -17,7 +17,7 @@ test.describe("Word to PDF (real LibreOffice backend)", () => {
       page.getByRole("button", { name: "Convert to PDF" }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your Word document is now a PDF" })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole("heading", { name: "Your Word document is now a PDF", exact: true })).toBeVisible({ timeout: 30_000 });
 
     const body = await response.json();
     const fetched = await page.request.get(body.data.download_url);

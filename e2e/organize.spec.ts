@@ -8,7 +8,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("Organize PDF (regression)", () => {
   test("drag-reorders pages and produces a PDF in the new order", async ({ page }) => {
     await page.goto("/organize");
-    await expect(page.getByRole("heading", { name: "Organize PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Organize PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await expect(page.locator("[data-thumbnail-page]")).toHaveCount(3);
@@ -33,7 +33,7 @@ test.describe("Organize PDF (regression)", () => {
       organizeButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is organized" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is organized", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     const fetched = await page.request.get(body.data.download_url);

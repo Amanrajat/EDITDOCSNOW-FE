@@ -20,14 +20,14 @@ export function CTA() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_50%_0%,rgba(255,107,0,0.25),transparent)]"
         />
         <h2 className="relative text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Ready to edit your first PDF?
+          Ready to get started?
         </h2>
         <p className="relative mx-auto mt-3 max-w-xl text-white/60">
-          No sign-up required. Upload a file and start editing in seconds.
+          No sign-up required. Upload a file and start using any tool in seconds.
         </p>
         <div className="relative mt-8 flex justify-center">
           <Button
-            label="Upload a PDF"
+            label="Upload PDF"
             variant="primary"
             size="lg"
             endContent={<ArrowRight className="h-4 w-4" />}

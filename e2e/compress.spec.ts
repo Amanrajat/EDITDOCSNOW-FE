@@ -8,7 +8,7 @@ const FIXTURE_IMAGE_HEAVY = path.join(__dirname, "fixtures", "sample-image-heavy
 test.describe("Compress PDF", () => {
   test("compresses an image-heavy PDF and shows real before/after stats", async ({ page }) => {
     await page.goto("/compress");
-    await expect(page.getByRole("heading", { name: "Compress PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Compress PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_IMAGE_HEAVY);
     // SelectableCard's real checkbox input is visually hidden (the card
@@ -22,7 +22,7 @@ test.describe("Compress PDF", () => {
       submitButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is compressed" })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is compressed", exact: true })).toBeVisible({ timeout: 30_000 });
 
     const body = await response.json();
     const data = body.data;

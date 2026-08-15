@@ -1,31 +1,30 @@
-"use client";
+import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { HowToUse } from "@/components/common/HowToUse";
+import { FAQSection } from "@/components/common/FAQSection";
+import { RelatedTools } from "@/components/common/RelatedTools";
+import { getHowToSteps } from "@/data/tool-howto";
+import { getToolFaqs } from "@/data/tool-faqs";
+import { getRelatedSlugs } from "@/data/related-tools";
+import { getToolsBySlugs } from "@/config/navigation";
+import { PdfToExcelClient } from "./PdfToExcelClient";
 
-import { Table2 } from "lucide-react";
-import { ConversionToolPage } from "@/components/convert/ConversionToolPage";
+export const metadata: Metadata = {
+  title: "PDF to Excel Converter — Convert PDF to XLSX",
+  description: "Extract tables from a PDF into a spreadsheet. Free, in your browser.",
+  alternates: { canonical: "/pdf-to-excel" },
+};
 
 export default function PdfToExcelPage() {
   return (
-    <ConversionToolPage
-      icon={<Table2 className="h-7 w-7" aria-hidden />}
-      title="PDF to Excel"
-      description="Extract real tables from your PDF into an editable Excel workbook, one sheet per page."
-      endpointPath="/convert/pdf-to-excel/"
-      submitLabel="Convert to Excel"
-      resultHeading="Your PDF is now an Excel workbook"
-      resultDescription={(result) => `${result.page_count} pages, ${result.table_count} table(s) extracted.`}
-      resultFilename="converted.xlsx"
-      renderStats={(result) => (
-        <div className="grid grid-cols-2 gap-3 text-center text-sm text-white/60">
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.page_count ?? "-")}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Sheets</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.table_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Tables</p>
-          </div>
-        </div>
-      )}
-    />
+    <div className="pb-8">
+      <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "PDF to Excel" }]} />
+      </div>
+      <PdfToExcelClient />
+      <HowToUse toolName="PDF to Excel" steps={getHowToSteps("pdf-to-excel")} />
+      <FAQSection faqs={getToolFaqs("pdf-to-excel")} />
+      <RelatedTools tools={getToolsBySlugs(getRelatedSlugs("pdf-to-excel"))} />
+    </div>
   );
 }

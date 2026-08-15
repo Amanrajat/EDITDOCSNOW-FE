@@ -6,7 +6,7 @@ import { inspectPdf } from "./utils/verify-pdf";
 test.describe("HTML to PDF", () => {
   test("renders raw HTML into a real PDF", async ({ page }) => {
     await page.goto("/html-to-pdf");
-    await expect(page.getByRole("heading", { name: "HTML to PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "HTML to PDF", exact: true })).toBeVisible();
 
     await page.getByRole("radio", { name: "Raw HTML" }).click();
     await page.getByLabel("HTML").fill("<h1>Invoice #42</h1><p>Total due: $100</p>");
@@ -16,7 +16,7 @@ test.describe("HTML to PDF", () => {
       page.getByRole("button", { name: "Convert to PDF" }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is ready" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is ready", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     const fetched = await page.request.get(body.data.download_url);

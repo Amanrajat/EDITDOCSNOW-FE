@@ -9,7 +9,7 @@ const FIXTURE_1PAGE = path.join(__dirname, "fixtures", "sample-1page.pdf");
 test.describe("Merge PDF (regression)", () => {
   test("merges two PDFs and verifies real combined output", async ({ page }) => {
     await page.goto("/merge");
-    await expect(page.getByRole("heading", { name: "Merge PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Merge PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles([FIXTURE_3PAGE, FIXTURE_1PAGE]);
     await expect(page.getByText("2 files")).toBeVisible();
@@ -22,7 +22,7 @@ test.describe("Merge PDF (regression)", () => {
       mergeButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDFs are merged" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDFs are merged", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     const fetched = await page.request.get(body.data.download_url);

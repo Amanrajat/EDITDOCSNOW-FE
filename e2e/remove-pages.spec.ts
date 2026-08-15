@@ -8,7 +8,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("Remove Pages (regression)", () => {
   test("removes a marked page and preserves order of the rest", async ({ page }) => {
     await page.goto("/remove-pages");
-    await expect(page.getByRole("heading", { name: "Remove Pages" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Remove Pages", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await expect(page.locator("[data-thumbnail-page]")).toHaveCount(3);
@@ -20,7 +20,7 @@ test.describe("Remove Pages (regression)", () => {
 
     await page.getByRole("button", { name: "Remove pages", exact: true }).click();
 
-    await expect(page.getByRole("heading", { name: "Pages removed" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Pages removed", exact: true })).toBeVisible({ timeout: 15_000 });
   });
 
   test("real output: removed page is gone, remaining pages keep their order", async ({ page }) => {

@@ -7,7 +7,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("Rotate PDF", () => {
   test("rotates a single selected page 90° and verifies real output rotation", async ({ page }) => {
     await page.goto("/rotate");
-    await expect(page.getByRole("heading", { name: "Rotate PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Rotate PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
 
@@ -31,7 +31,7 @@ test.describe("Rotate PDF", () => {
     ]);
     expect(response.ok()).toBeTruthy();
 
-    await expect(page.getByRole("heading", { name: "PDF rotated" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "PDF rotated", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     const downloadUrl: string = body.data.download_url;
@@ -69,7 +69,7 @@ test.describe("Rotate PDF", () => {
       applyButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "PDF rotated" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "PDF rotated", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     const fetched = await page.request.get(body.data.download_url);

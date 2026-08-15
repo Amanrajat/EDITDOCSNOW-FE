@@ -8,7 +8,7 @@ const FIXTURE_WITH_TABLE = path.join(__dirname, "fixtures", "sample-with-table.p
 test.describe("PDF to Word", () => {
   test("converts to a real docx with text and a table", async ({ page }) => {
     await page.goto("/pdf-to-word");
-    await expect(page.getByRole("heading", { name: "PDF to Word" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "PDF to Word", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_WITH_TABLE);
 
@@ -17,7 +17,7 @@ test.describe("PDF to Word", () => {
       page.getByRole("button", { name: "Convert to Word" }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is now a Word document" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is now a Word document", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.table_count).toBe(1);

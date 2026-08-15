@@ -23,7 +23,7 @@ Image.new("RGB", (400, 300), tuple(map(int, sys.argv[2].split(",")))).save(sys.a
 
   test("combines two images into a PDF, one page each, in upload order", async ({ page }) => {
     await page.goto("/jpg-to-pdf");
-    await expect(page.getByRole("heading", { name: "JPG to PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "JPG to PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles([
       path.join(FIXTURE_DIR, "red.jpg"),
@@ -36,7 +36,7 @@ Image.new("RGB", (400, 300), tuple(map(int, sys.argv[2].split(",")))).save(sys.a
       page.getByRole("button", { name: /Create PDF from 2 images/ }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is ready" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is ready", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.page_count).toBe(2);

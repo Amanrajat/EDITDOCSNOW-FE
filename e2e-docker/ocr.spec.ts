@@ -8,14 +8,14 @@ const FIXTURE_SCANNED = path.join(__dirname, "..", "e2e", "fixtures", "scanned.p
 test.describe("OCR (real Tesseract backend + Celery worker)", () => {
   test("makes a scanned PDF searchable via real OCR", async ({ page }) => {
     await page.goto("/ocr");
-    await expect(page.getByRole("heading", { name: /OCR/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^OCR/ })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_SCANNED);
     await page.getByRole("button", { name: "Run OCR" }).click();
 
     // Async: the job goes through queued/processing before completing -
     // give it real time for Tesseract to actually run.
-    await expect(page.getByRole("heading", { name: "Your PDF is now searchable" })).toBeVisible({ timeout: 60_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is now searchable", exact: true })).toBeVisible({ timeout: 60_000 });
     await expect(page.getByText(/1 of 1 page.* recognized via OCR/)).toBeVisible();
 
     const downloadButton = page.getByRole("button", { name: "Download" });

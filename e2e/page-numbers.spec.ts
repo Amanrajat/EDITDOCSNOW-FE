@@ -24,7 +24,7 @@ print(json.dumps(bool(rects)))
 test.describe("Page Numbers", () => {
   test("adds sequential numbers to every page at the default position", async ({ page }) => {
     await page.goto("/page-numbers");
-    await expect(page.getByRole("heading", { name: "Page Numbers" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Page Numbers", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await expect(page.locator("[data-page-number-preview]")).toBeVisible();
@@ -35,7 +35,7 @@ test.describe("Page Numbers", () => {
       submitButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Page numbers added" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Page numbers added", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.page_count).toBe(3);

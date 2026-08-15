@@ -8,7 +8,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("Split PDF (regression)", () => {
   test("extracts specific pages in the requested order", async ({ page }) => {
     await page.goto("/split");
-    await expect(page.getByRole("heading", { name: "Split PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Split PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await page.getByRole("radio", { name: "Extract pages" }).click();
@@ -20,7 +20,7 @@ test.describe("Split PDF (regression)", () => {
       splitButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is split" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is split", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.is_zip).toBe(false);
@@ -48,6 +48,6 @@ test.describe("Split PDF (regression)", () => {
     const body = await response.json();
     expect(body.data.is_zip).toBe(true);
     expect(body.data.output_count).toBe(3);
-    await expect(page.getByRole("heading", { name: "Your PDF is split" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is split", exact: true })).toBeVisible({ timeout: 15_000 });
   });
 });

@@ -1,40 +1,30 @@
-"use client";
+import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { HowToUse } from "@/components/common/HowToUse";
+import { FAQSection } from "@/components/common/FAQSection";
+import { RelatedTools } from "@/components/common/RelatedTools";
+import { getHowToSteps } from "@/data/tool-howto";
+import { getToolFaqs } from "@/data/tool-faqs";
+import { getRelatedSlugs } from "@/data/related-tools";
+import { getToolsBySlugs } from "@/config/navigation";
+import { PdfToPowerpointClient } from "./PdfToPowerpointClient";
 
-import { Presentation as PresentationIcon } from "lucide-react";
-import { ConversionToolPage } from "@/components/convert/ConversionToolPage";
+export const metadata: Metadata = {
+  title: "PDF to PowerPoint Converter — Convert PDF to PPTX",
+  description: "Turn PDF pages into an editable slide deck. Free, in your browser.",
+  alternates: { canonical: "/pdf-to-powerpoint" },
+};
 
-export default function PdfToPowerPointPage() {
+export default function PdfToPowerpointPage() {
   return (
-    <ConversionToolPage
-      icon={<PresentationIcon className="h-7 w-7" aria-hidden />}
-      title="PDF to PowerPoint"
-      description="Turn your PDF into an editable slide deck - one slide per page, with real text, tables, and images."
-      endpointPath="/convert/pdf-to-pptx/"
-      submitLabel="Convert to PowerPoint"
-      resultHeading="Your PDF is now a slide deck"
-      resultDescription={(result) => {
-        const scanned = Array.isArray(result.scanned_pages) ? result.scanned_pages.length : 0;
-        return scanned > 0
-          ? `${result.page_count} slides created (${scanned} scanned page${scanned === 1 ? "" : "s"} kept as images).`
-          : `${result.page_count} slides created.`;
-      }}
-      resultFilename="converted.pptx"
-      renderStats={(result) => (
-        <div className="grid grid-cols-3 gap-3 text-center text-sm text-white/60">
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.page_count ?? "-")}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Slides</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.table_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Tables</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.image_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Images</p>
-          </div>
-        </div>
-      )}
-    />
+    <div className="pb-8">
+      <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "PDF to PowerPoint" }]} />
+      </div>
+      <PdfToPowerpointClient />
+      <HowToUse toolName="PDF to PowerPoint" steps={getHowToSteps("pdf-to-powerpoint")} />
+      <FAQSection faqs={getToolFaqs("pdf-to-powerpoint")} />
+      <RelatedTools tools={getToolsBySlugs(getRelatedSlugs("pdf-to-powerpoint"))} />
+    </div>
   );
 }

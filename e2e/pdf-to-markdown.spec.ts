@@ -6,7 +6,7 @@ const FIXTURE_WITH_TABLE = path.join(__dirname, "fixtures", "sample-with-table.p
 test.describe("PDF to Markdown", () => {
   test("extracts a heading, paragraph, and table into real markdown", async ({ page }) => {
     await page.goto("/pdf-to-markdown");
-    await expect(page.getByRole("heading", { name: "PDF to Markdown" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "PDF to Markdown", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_WITH_TABLE);
 
@@ -15,7 +15,7 @@ test.describe("PDF to Markdown", () => {
       page.getByRole("button", { name: "Convert to Markdown" }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your PDF is now Markdown" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your PDF is now Markdown", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.heading_count).toBeGreaterThanOrEqual(1);

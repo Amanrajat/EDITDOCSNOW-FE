@@ -1,37 +1,30 @@
-"use client";
+import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { HowToUse } from "@/components/common/HowToUse";
+import { FAQSection } from "@/components/common/FAQSection";
+import { RelatedTools } from "@/components/common/RelatedTools";
+import { getHowToSteps } from "@/data/tool-howto";
+import { getToolFaqs } from "@/data/tool-faqs";
+import { getRelatedSlugs } from "@/data/related-tools";
+import { getToolsBySlugs } from "@/config/navigation";
+import { PdfToMarkdownClient } from "./PdfToMarkdownClient";
 
-import { FileCode } from "lucide-react";
-import { ConversionToolPage } from "@/components/convert/ConversionToolPage";
+export const metadata: Metadata = {
+  title: "PDF to Markdown Converter",
+  description: "Convert a PDF's headings, paragraphs, and tables into Markdown. Free, in your browser.",
+  alternates: { canonical: "/pdf-to-markdown" },
+};
 
 export default function PdfToMarkdownPage() {
   return (
-    <ConversionToolPage
-      icon={<FileCode className="h-7 w-7" aria-hidden />}
-      title="PDF to Markdown"
-      description="Extract headings, paragraphs, lists, tables, and links from your PDF into clean Markdown."
-      endpointPath="/convert/pdf-to-markdown/"
-      submitLabel="Convert to Markdown"
-      resultHeading="Your PDF is now Markdown"
-      resultDescription={(result) =>
-        `${result.page_count} pages, ${result.heading_count} heading(s), ${result.table_count} table(s).`
-      }
-      resultFilename="converted.md"
-      renderStats={(result) => (
-        <div className="grid grid-cols-3 gap-3 text-center text-sm text-white/60">
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.page_count ?? "-")}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Pages</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.heading_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Headings</p>
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-white">{String(result.table_count ?? 0)}</p>
-            <p className="text-xs uppercase tracking-wide text-white/40">Tables</p>
-          </div>
-        </div>
-      )}
-    />
+    <div className="pb-8">
+      <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "PDF to Markdown" }]} />
+      </div>
+      <PdfToMarkdownClient />
+      <HowToUse toolName="PDF to Markdown" steps={getHowToSteps("pdf-to-markdown")} />
+      <FAQSection faqs={getToolFaqs("pdf-to-markdown")} />
+      <RelatedTools tools={getToolsBySlugs(getRelatedSlugs("pdf-to-markdown"))} />
+    </div>
   );
 }

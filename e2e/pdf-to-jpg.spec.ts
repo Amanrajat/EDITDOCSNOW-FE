@@ -6,7 +6,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("PDF to JPG", () => {
   test("converts a single selected page to a real JPG", async ({ page }) => {
     await page.goto("/pdf-to-jpg");
-    await expect(page.getByRole("heading", { name: "PDF to JPG" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "PDF to JPG", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
     await expect(page.locator("[data-thumbnail-page]")).toHaveCount(3);
@@ -18,7 +18,7 @@ test.describe("PDF to JPG", () => {
       page.getByRole("button", { name: "Convert to JPG" }).click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "Your image is ready" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your image is ready", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.converted_pages).toEqual([2]);
@@ -42,7 +42,7 @@ test.describe("PDF to JPG", () => {
     const body = await response.json();
     expect(body.data.converted_pages).toEqual([1, 2, 3]);
 
-    await expect(page.getByRole("heading", { name: "Your images are ready" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "Your images are ready", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const fetched = await page.request.get(body.data.download_url);
     expect(fetched.headers()["content-type"]).toBe("application/zip");

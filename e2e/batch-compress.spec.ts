@@ -15,7 +15,7 @@ test.describe("Batch Compress", () => {
 
   test("compresses multiple real PDFs in the background and produces a real ZIP", async ({ page }) => {
     await page.goto("/batch-compress");
-    await expect(page.getByRole("heading", { name: "Batch Compress" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Batch Compress", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles([FIXTURE_IMAGE_HEAVY, FIXTURE_3PAGE]);
     await expect(page.getByText("2 files", { exact: true })).toBeVisible();

@@ -8,7 +8,7 @@ const FIXTURE_3PAGE = path.join(__dirname, "fixtures", "sample-3page.pdf");
 test.describe("Crop PDF", () => {
   test("dragging the crop rectangle and applying it shrinks all pages", async ({ page }) => {
     await page.goto("/crop");
-    await expect(page.getByRole("heading", { name: "Crop PDF" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Crop PDF", exact: true })).toBeVisible();
 
     await page.locator('input[type="file"]').setInputFiles(FIXTURE_3PAGE);
 
@@ -34,7 +34,7 @@ test.describe("Crop PDF", () => {
       applyButton.click(),
     ]);
     expect(response.ok()).toBeTruthy();
-    await expect(page.getByRole("heading", { name: "PDF cropped" })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("heading", { name: "PDF cropped", exact: true })).toBeVisible({ timeout: 15_000 });
 
     const body = await response.json();
     expect(body.data.page_count).toBe(3);

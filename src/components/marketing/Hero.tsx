@@ -19,7 +19,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Badge variant="orange" icon={<Sparkles className="h-3.5 w-3.5" />} label="Now with visual block editing" />
+          <Badge variant="orange" icon={<Sparkles className="h-3.5 w-3.5" />} label="Powerful PDF tools, all in one place" />
         </motion.div>
 
         <motion.h1
@@ -28,8 +28,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white sm:text-6xl"
         >
-          Edit any PDF&apos;s text,
-          <br className="hidden sm:block" /> right in your browser.
+          Everything you need to work with PDFs.
         </motion.h1>
 
         <motion.p
@@ -38,9 +37,8 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-6 max-w-2xl text-balance text-lg text-white/60"
         >
-          Upload a PDF and EditDocsNow extracts every editable text block. Tweak the words
-          directly on the page, then download a perfectly regenerated document — no design
-          software required.
+          Edit, organize, compress, convert, and OCR PDFs directly in your browser — no
+          installs, no sign-up.
         </motion.p>
 
         <motion.div
@@ -50,14 +48,14 @@ export function Hero() {
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
         >
           <Button
-            label="Upload a PDF"
+            label="Upload PDF"
             variant="primary"
             size="lg"
             endContent={<ArrowRight className="h-4 w-4" />}
             as={Link}
             href="/upload"
           />
-          <Button label="See how it works" variant="ghost" size="lg" href="#how-it-works" as={Link} />
+          <Button label="Explore PDF Tools" variant="ghost" size="lg" as={Link} href="/tools" />
         </motion.div>
 
         <motion.div
